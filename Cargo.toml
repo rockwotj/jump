@@ -1,0 +1,10 @@
+[package]
+name = "jump"
+version = "0.1.0"
+authors = ["Tyler Rockwood <rockwotj@gmail.com>"]
+
+[dependencies]
+serde = "0.8"
+serde_derive = "0.8"
+serde_json = "0.8"
+clap = "2.19"
