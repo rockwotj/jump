@@ -26,17 +26,20 @@ fn main() {
         .setting(AppSettings::UnifiedHelpMessage)
         .arg(Arg::with_name("marker")
              .help("The name of the marker")
-             .index(1)
-             .required(true))
+             .index(1))
         .get_matches();
 
-    let config = exit_if_err!(Config::load(), "echo \"Failed to load config: {}\"");
-    // We can unwrap this because it is marked as required
-    let name = args.value_of("marker").unwrap();
-    let marker_path = config.get_marker(name);
-    match marker_path {
-        None       => println!("echo \"Can't jump to {}\"", name),
-        Some(path) => println!("cd {:?}", path),
+    let config = exit_if_err!(Config::load(), "Failed to load config: {}");
+    let name = args.value_of("marker").unwrap_or("");
+    let marker = config.get_marker(name)
+                       .and_then(|path| path.to_str()
+                                            .map(|s| s.to_string()));
+    match marker {
+        None       => {
+            println!("Can't jump to '{}'", name);
+            process::exit(1)
+        },
+        Some(path) => println!("{}", path),
     }
 
 }
