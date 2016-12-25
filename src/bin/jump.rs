@@ -36,7 +36,7 @@ fn main() {
     let marker_path = config.get_marker(name);
     match marker_path {
         None       => println!("echo \"Can't jump to {}\"", name),
-        Some(path) => println!("cd \"{}\"", path),
+        Some(path) => println!("cd {:?}", path),
     }
 
 }
