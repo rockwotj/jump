@@ -6,9 +6,9 @@ extern crate jump;
 use clap::{Arg, App, AppSettings};
 use jump::Config;
 use std::process;
-use std::env;
 
 macro_rules! exit_if_err {
+    // TODO: print to stderr
     ($x:expr, $msg:expr) => (match $x {
         Ok(val) => val,
         Err(err) => {
@@ -30,13 +30,13 @@ fn main() {
              .required(true))
         .get_matches();
 
-    let config = exit_if_err!(Config::load(), "Failed to load config: {}");
+    let config = exit_if_err!(Config::load(), "echo \"Failed to load config: {}\"");
     // We can unwrap this because it is marked as required
     let name = args.value_of("marker").unwrap();
     let marker_path = config.get_marker(name);
     match marker_path {
-        None       => println!("Can't jump to {}", name),
-        Some(path) => exit_if_err!(env::set_current_dir(&path), "Can't change directory: {}"),
+        None       => println!("echo \"Can't jump to {}\"", name),
+        Some(path) => println!("cd \"{}\"", path),
     }
 
 }
