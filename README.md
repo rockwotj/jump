@@ -6,7 +6,7 @@ Inspired by [teleport](https://github.com/bollu/teleport)
 
 ## Install
 
-Install this by `cargo install` in the project directory. You'll need rust nightly installed to compile this.
+Install this by `cargo install` in the project directory. You'll need rust nightly installed to compile this. If you're on MacOS, then you can download the binaries from the releases page.
 
 Once you've installed the binaries on your $PATH, you'll want to add the following function to your `bash_alias` or profile.
 
